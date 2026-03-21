@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 /**
  * @name registerUserController
- * @description register new user with expects username, email,Password in the required .body
+ * @description register new user with expects username, email,Password in the request .body
  * @access Public 
  */
 
@@ -69,13 +69,89 @@ async function registerUserController(req,res) {
         })
 
     }catch(err){
-
+        console.error("Error in registerUserController:", err);
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
+        })
     }
 
 
     
 }
 
+
+
+/**
+ * @name loginUserController
+ * @description login a user , expects email and password in the request.body
+ * @access Public
+ */
+
+
+async function loginUserController(req,res){
+
+    try{
+
+
+        const {email,password} = req.body;
+        if(!email|| !password){
+            return res.status(400).json({
+                success:false,
+                message:"All the fields are required"
+            })
+        }
+
+        const user = await userModel.findOne({email});
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:"User not found in a Database"
+            })
+        }
+
+        const isPasswordIsValid = await bcrypt.compare(password,user.Password);
+        if(!isPasswordIsValid){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid credentials"
+            })
+        }    
+        
+         const token = jwt.sign({
+            id:user._id,username:user.username,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "1d"
+        }
+        )
+
+        res.cookie("token",token)
+        res.status(200).json({
+            success:true,
+            user:{
+                id:user._id,
+                username:user.username,
+                email:user.email
+            }
+        })
+
+        
+
+
+    }catch(err){
+
+         console.error("Error in registerUserController:", err);
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
+        })
+    }
+}
+
+
 module.exports ={
-    registerUserController
+    registerUserController,
+    loginUserController
 }
