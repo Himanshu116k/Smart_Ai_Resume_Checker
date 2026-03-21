@@ -42,12 +42,12 @@ async function registerUserController(req,res) {
 
         const hashedPassword = await bcrypt.hash(Password,10);
 
-        const newUser = new userModel({
+        const user = new userModel({
             username,
             email,
             Password:hashedPassword
         })
-
+        await user.save();
         const token = jwt.sign({
             id:user._id,username:user.username,
         },
