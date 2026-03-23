@@ -17,9 +17,9 @@ async function registerUserController(req,res) {
 
     try{
 
-        const  {username,email,Password} = req.body;
+        const  {username,email,password} = req.body;
 
-        if(!username || !email || !Password){
+        if(!username || !email || !password){
 
             return res.status(400).json({
                 success:false,
@@ -42,7 +42,7 @@ async function registerUserController(req,res) {
             })
         }
 
-        const hashedPassword = await bcrypt.hash(Password,10);
+        const hashedPassword = await bcrypt.hash(password,10);
 
         const user = new userModel({
             username,
@@ -154,7 +154,11 @@ async function loginUserController(req,res){
 
 
 
-
+/**
+ * @name logoutUserController
+ * @description clear the token from the client and add the token in a blacklist
+ * @access Public
+ */
 async function logoutUserController(req,res) {
 
     console.log("res is ",res);
@@ -172,8 +176,33 @@ async function logoutUserController(req,res) {
     
 }
 
+
+
+/**
+ * @name getMeController
+ * @description get the current user
+ * @access Private 
+ */
+async function getMeController(req,res){
+
+    const user  = await userModel.findById(req.user.id)
+
+    res.status(200).json({
+        success:true,
+        message:"User data Fetched SuccessFully",
+        user:{
+            id:user._id,
+            username:user.username,
+            email:user.email
+        }
+    })
+}
+
+
+
 module.exports ={
     registerUserController,
     loginUserController,
-    logoutUserController
+    logoutUserController,
+    getMeController
 }

@@ -1,6 +1,8 @@
 const {Router} = require("express");
 const authController = require("../controllers/auth.controllet.js")
 
+const authMiddleWare = require("../middlewares/auth.middleware.js")
+
 const authRouter = Router();
 
 
@@ -32,7 +34,7 @@ authRouter.get('/logout',authController.logoutUserController);
  * @description get the current user
  * @access Private
  */
-authRouter.get("/get-me",)
+authRouter.get("/get-me",authMiddleWare.authUser)
 
 
 
