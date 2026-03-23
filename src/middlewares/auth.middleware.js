@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken")
+const tokenBlacklistModel = require("../models/blacklist.model.js")
 
 
-function authUser(req,res,next){
+async function authUser(req,res,next){
     const token = req.cookies.token;
 
     if(!token){
@@ -11,7 +12,17 @@ function authUser(req,res,next){
         })
     }
 
+    const isBlacklisted = await tokenBlacklistModel.findOne({token})
     
+    if(isBlacklisted){
+         
+        return res.status(401).json({
+            sucess:false,
+            message:"Token is Blacklisted"
+        })
+
+    }
+
     try {
         const decoded = jwt.verify(token,process.env.JWT_SECRET)
         req.user = decoded;

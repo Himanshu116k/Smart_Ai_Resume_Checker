@@ -34,7 +34,7 @@ authRouter.get('/logout',authController.logoutUserController);
  * @description get the current user
  * @access Private
  */
-authRouter.get("/get-me",authMiddleWare.authUser)
+authRouter.get("/get-me",authMiddleWare.authUser,authController.getMeController)
 
 
 
