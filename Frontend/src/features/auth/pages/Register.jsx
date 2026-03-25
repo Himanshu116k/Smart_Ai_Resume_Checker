@@ -1,6 +1,17 @@
 import React from 'react'
+import {useNavigate,Link} from "react-router"
+
 
 const Register = () => {
+
+
+
+
+
+
+  const navigate = useNavigate();
+
+  
 
    const handleSubmit = (e) =>{
     e.preventDefault();
@@ -11,6 +22,11 @@ const Register = () => {
       <h1>Register
       </h1>
       <form onSubmit={handleSubmit}>
+        <div className="input-group"> 
+          <label htmlFor="username">UserName</label>
+          <input type="text" id="username" name="username" placeholder="Enter your UserName" />
+          
+        </div>
         <div className="input-group"> 
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Enter your email" />
@@ -25,6 +41,7 @@ const Register = () => {
 
         </button>
       </form>
+      <p>Already have an account? <Link to='/login'>Login</Link> </p>
     </div>
    </main>
   )
