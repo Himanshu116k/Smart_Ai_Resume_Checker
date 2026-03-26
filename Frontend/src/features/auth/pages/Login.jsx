@@ -2,6 +2,7 @@ import "../../auth/auth.form.scss"
 import {useNavigate,Link} from "react-router"
 import { useAuth } from "../useAuth"
 import { useState } from "react";
+import Loader from "../components/Loder";
 const Login = () => {
 
 
@@ -22,7 +23,7 @@ const Login = () => {
 
   if(loading){
     return( <main>
-      <h1>Loading........</h1>
+     <Loader/>
     </main>)
   }
   return (
