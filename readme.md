@@ -60,7 +60,7 @@ AI-Resume-Analyzer/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ai-resume-analyzer.git
+git clone https://github.com/Himanshu116k/Smart_Ai_Resume_Checker
 
 # Navigate to project folder
 cd ai-resume-analyzer
