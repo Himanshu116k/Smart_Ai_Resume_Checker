@@ -18,8 +18,10 @@ async function registerUserController(req,res) {
     try{
 
         const  {username,email,password} = req.body;
+        console.log("username,email,password is ",username,email,password);
 
         if(!username || !email || !password){
+            console.log("All fields are required");
 
             return res.status(400).json({
                 success:false,
@@ -97,7 +99,9 @@ async function loginUserController(req,res){
 
 
         const {email,password} = req.body;
-        if(!email|| !password){
+        console.log("email and password is ",email,password);
+        if(!email || !password){
+            console.log("All fields are required");
             return res.status(400).json({
                 success:false,
                 message:"All the fields are required"
@@ -105,6 +109,7 @@ async function loginUserController(req,res){
         }
 
         const user = await userModel.findOne({email});
+        console.log("user is ",user);
         if(!user){
             return res.status(404).json({
                 success:false,

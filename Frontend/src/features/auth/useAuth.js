@@ -12,10 +12,13 @@ export const useAuth  = ()=>{
     const handleLogin = async ({email , password}) =>{
         setloading(true);
         try{
-            const data = await login({email,password})
-            setUser(data.user);
+            const data = await login(email, password)
+            if (data && data.user) {
+                setUser(data.user);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Login error:", error);
+            // Optional: You can add error state here to show user-facing error messages
         } finally {
             setloading(false);
         }
@@ -25,10 +28,12 @@ export const useAuth  = ()=>{
 
         setloading(true);
         try{
-            const data = await register({username,email,password})
-            setUser(data.user);
+            const data = await register(username,email,password)
+            if (data && data.user) {
+                setUser(data.user);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Register error:", error);
         } finally {
             setloading(false);
         }
@@ -45,14 +50,14 @@ export const useAuth  = ()=>{
         setloading(true);
         try{
             const data = await logout();
-            setUser(null);
+            if (data && data.success) {
+                setUser(null);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Logout error:", error);
         } finally {
             setloading(false);
         }
-        const data = await logout();
-        setUser(null);
     }
 
 
