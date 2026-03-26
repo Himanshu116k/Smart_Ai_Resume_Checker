@@ -23,9 +23,9 @@ export async function login(email,password) {
         const responce = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/auth/login`,{
             email,password
         },{
-            withCredentialsL:true
+            withCredentials:true
         })
-
+       console.log(responce.data);
         return responce.data;
 
     } catch (error) {
@@ -34,7 +34,7 @@ export async function login(email,password) {
     
 }
 
-export async function logut() {
+export async function logout() {
     
     try {
         const responce = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/auth/logout`,{
