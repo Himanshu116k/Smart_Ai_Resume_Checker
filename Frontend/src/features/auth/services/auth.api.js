@@ -60,7 +60,9 @@ export async function getMe(params) {
             withCredentials:true
         })
         
+        return responce.data;
     } catch (error) {
         console.log(error);
+        throw error; // Re-throw so calling code can handle it
     }
 }
