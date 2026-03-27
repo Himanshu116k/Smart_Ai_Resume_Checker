@@ -63,7 +63,7 @@ AI-Resume-Analyzer/
 git clone https://github.com/Himanshu116k/Smart_Ai_Resume_Checker
 
 # Navigate to project folder
-cd ai-resume-analyzer
+cd Smart_Ai_Resume_Checker
 
 # Install dependencies
 npm install
