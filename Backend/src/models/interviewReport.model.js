@@ -1,0 +1,118 @@
+const mongoose = require('mongoose')
+
+
+const technicalQuestionSchema = new mongoose.Schema({
+    question:{
+        type:String,
+        required:[true,"question is required"]
+
+    },
+    intention:{
+        type:String,
+        required:[true,"intention is required"]
+    },
+    answer:{
+        type:String,
+        required:[true,"answer is required"]
+    }
+},{
+    _id:false
+})
+
+const behavioralQuestionSchema = new mongoose.Schema({
+
+    question:{
+        type:String,
+        required:[true,"question is required"]
+
+    },
+    intention:{
+        type:String,
+        required:[true,"intention is required"]
+    },
+    answer:{
+        type:String,
+        required:[true,"answer is required"]
+    }  
+
+
+},{
+    _id:false
+})
+
+
+
+const skillGapSchema = new mongoose.Schema({
+
+
+    skill:{
+        type:String,
+        required:[true,"skill gap is required"]
+    },
+    severity:{
+        type:String,
+        enum:["low","medium","high"],
+        required:[true,"Severity  is required"]
+    }
+
+},{
+    _id:false
+})
+
+
+const preprationPlanSchema = new mongoose.Schema({
+
+
+    day:{
+
+        type:Number,
+        require:[true,"Day is Required"]
+    },
+    focus:{
+       type:String,
+       required:[true,"focus is required"]
+
+    },
+    task:{
+        type:String,
+        required:[true,"task is required"]
+
+
+    }
+
+
+
+
+})
+const interviewReportSchema  = new mongoose.Schema({
+    
+    jobDescription:{
+        type:String,
+        required:[true,"job description is required"]
+    },
+    resume:{
+        type:String
+    },
+    selfDescription:{
+        type:String,
+        required:[true,"self description is required"]
+    },
+    matchScore:{
+        type:Number,
+        min:0,
+        max:100
+    },
+    technicalQuestion:[technicalQuestionSchema],
+    behavioralQuestion:[behavioralQuestionSchema],
+    skillGap:[skillGapSchema],
+    preprationPlan:[preprationPlanSchema]
+
+     
+
+
+
+
+})
+
+const interviewReportModel =mongoose.model({"InterviewReport",interviewReportSchema});
+module.exports = interviewReportModel;
