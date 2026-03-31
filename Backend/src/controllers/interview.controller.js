@@ -14,7 +14,9 @@ async function genrateInterViewReportControll(req,res){
     const ai = await generateInterviewReport({
         resume:resumeContent.text,
         selfDescription,
-        jobDescription
+        jobDescription,
+ 
+        
 
         
     })
@@ -24,10 +26,11 @@ async function genrateInterViewReportControll(req,res){
         resume:resumeContent.text,
         selfDescription,
         jobDescription,
-        technicalQuestion: ai.technicalQuestions,
-        behavioralQuestion: ai.behavioralQuestions,
-        skillGap: ai.skillGaps,
-        preprationPlan: ai.preparationPlan
+        ...ai
+        // technicalQuestion: ai.technicalQuestions,
+        // behavioralQuestion: ai.behavioralQuestions,
+        // skillGap: ai.skillGaps,
+        // preprationPlan: ai.preparationPlan
         
 
 })
