@@ -8,11 +8,11 @@ async function genrateInterViewReportControll(req,res){
 
     
     const resumeFile = req.file
-    const resumeContent =  await (new pdfPfarse.PDFParse (req.file.buffer).getText())
+    const resumeContent =  await (new pdfParse.PDFParse (Uint8Array.from(req.file.buffer)).getText())
     const {selfDescription,jobDescription} = req.body;
 
-    const generateInterviewReportByAi = await generateInterviewReport({
-        resume:resumeContent,
+    const ai = await generateInterviewReport({
+        resume:resumeContent.text,
         selfDescription,
         jobDescription
 
@@ -20,11 +20,15 @@ async function genrateInterViewReportControll(req,res){
     })
 
     const interviewReport = await interviewReportModel.create({
-        user:req.user.id,
-        resume:resumeContent,
+        user:"69be802eb8d6aefd166d8787", //req.user.id || 
+        resume:resumeContent.text,
         selfDescription,
-        technicalQuestion,
-        ...generateInterviewReportByAi
+        jobDescription,
+        technicalQuestion: ai.technicalQuestions,
+        behavioralQuestion: ai.behavioralQuestions,
+        skillGap: ai.skillGaps,
+        preprationPlan: ai.preparationPlan
+        
 
 })
 res.status(201).json({

@@ -66,7 +66,7 @@ const preprationPlanSchema = new mongoose.Schema({
     day:{
 
         type:Number,
-        require:[true,"Day is Required"]
+        required:[true,"Day is Required"]
     },
     focus:{
        type:String,
@@ -74,9 +74,8 @@ const preprationPlanSchema = new mongoose.Schema({
 
     },
     task:{
-        type:String,
-        required:[true,"task is required"]
-
+        type:[String],
+        default:[]
 
     }
 
@@ -107,8 +106,8 @@ const interviewReportSchema  = new mongoose.Schema({
     skillGap:[skillGapSchema],
     preprationPlan:[preprationPlanSchema],
     user:{
-        type:mongoose.Schema.ObjectId,
-        ref:"users"
+       type:String
+    
     }
 
      

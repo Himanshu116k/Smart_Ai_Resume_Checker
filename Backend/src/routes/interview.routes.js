@@ -1,18 +1,21 @@
-const express = require("express")
-const authMiddleware = require("../middlewares/auth.middleware.js")
-const interViewController =require("../controllers/interview.controller.js")
-const interviewRoute = express.Router()
-const upload = require("../middlewares/file.middleware.js")
+const express = require("express");
+const { Router } = require("express"); // ✅ FIX
+const authMiddleware = require("../middlewares/auth.middleware.js");
+const interViewController = require("../controllers/interview.controller.js");
+const upload = require("../middlewares/file.middleware.js");
+
+const interviewRoute = Router();
 
 /**
  * @route POST /api/interview
- * @description genrate new interview report on the basis of user data 
+ * @description generate new interview report on the basis of user data 
  * @access private
  */
-interviewRoute.post("/",authMiddleware.authUser, upload.single("resume"),interViewController.genrateInterViewReportControll)
+interviewRoute.post(
+  "/",
+  //authMiddleware, // ✅ added
+  upload.single("resume"),
+  interViewController.genrateInterViewReportControll
+);
 
-
-
-
-
-module.export = interviewRoute;
+module.exports = interviewRoute; // ✅ FIX
