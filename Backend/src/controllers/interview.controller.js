@@ -21,16 +21,19 @@ async function genrateInterViewReportControll(req,res){
         
     })
 
+    console.log("This is from controller",ai);
+
     const interviewReport = await interviewReportModel.create({
         user:"69be802eb8d6aefd166d8787", //req.user.id || 
         resume:resumeContent.text,
         selfDescription,
         jobDescription,
-        ...ai
-        // technicalQuestion: ai.technicalQuestions,
-        // behavioralQuestion: ai.behavioralQuestions,
-        // skillGap: ai.skillGaps,
-        // preprationPlan: ai.preparationPlan
+        matchScore: ai.matchScore,
+        // ...ai,
+        technicalQuestions: ai.technicalQuestions,
+        behavioralQuestion: ai.behavioralQuestions,
+        skillGaps: ai.skillGaps,
+        preparationPlan: ai.preparationPlan
         
 
 })
