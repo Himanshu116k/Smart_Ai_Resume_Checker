@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 
-import Resumpage from "./features/auth/pages/resumepage.jsx";
+import Resumpage from "./features/auth/pages/Resumepage.jsx";
 import HomePage from "./features/auth/pages/Homepage.jsx";
 
 export const router = createBrowserRouter([
