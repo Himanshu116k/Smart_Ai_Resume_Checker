@@ -500,7 +500,7 @@ export default function InterviewAnalyzer() {
     formData.append("selfDescription", selfDescription);
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/api/interview", { method: "POST", body: formData });
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/interview `, { method: "POST", body: formData });
       if (!res.ok) throw new Error("Server error");
       const result = await res.json();
       setData(result?.interviewReport || null);
