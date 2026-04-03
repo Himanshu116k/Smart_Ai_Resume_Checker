@@ -3,19 +3,13 @@ import { getMe } from "./services/auth.api";
 
 export const AuthContext = createContext()
 
-export const AuthProvider = ({children}) =>{
-   const [user,setUser]  = useState(null);
-   const [laoding,setloading] = useState(false);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-
- 
-
-   return(
-    <AuthContext.Provider value ={{user,setUser,laoding,setloading}}>
-        {children}
+  return (
+    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
+      {children}
     </AuthContext.Provider>
-   )
-
-
-
+  );
 }

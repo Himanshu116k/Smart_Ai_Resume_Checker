@@ -134,7 +134,11 @@ async function loginUserController(req,res){
         }
         )
 
-        res.cookie("token",token)
+        res.cookie("token",token,{
+        httpOnly: true,
+        secure: false,       // ⚠️ true in production (HTTPS)
+        sameSite: "Lax", 
+        })
         res.status(200).json({
             success:true,
             user:{
@@ -182,25 +186,29 @@ async function logoutUserController(req,res) {
 }
 
 
-
 /**
  * @name getMeController
  * @description get the current user
  * @access Private 
  */
-async function getMeController(req,res){
+async function getMeController(req, res) {
+    const user = await userModel.findById(req.user.id || req.user._id);
 
-    const user  = await userModel.findById(req.user.id)
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: "User not found"
+        });
+    }
 
     res.status(200).json({
-        success:true,
-        message:"User data Fetched SuccessFully",
-        user:{
-            id:user._id,
-            username:user.username,
-            email:user.email
+        success: true,
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
         }
-    })
+    });
 }
 
 
